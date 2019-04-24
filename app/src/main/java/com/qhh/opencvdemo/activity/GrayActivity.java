@@ -84,4 +84,10 @@ public class GrayActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PermissionHelper.getInstance().release();
+        CaptureHelper.getInstance().release();
+    }
 }
