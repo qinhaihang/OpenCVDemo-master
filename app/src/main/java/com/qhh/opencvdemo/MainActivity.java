@@ -1,5 +1,6 @@
 package com.qhh.opencvdemo;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.util.Log;
 
 import com.qhh.opencvdemo.activity.GrayActivity;
 import com.qhh.opencvdemo.adapter.MainAdatper;
+import com.qhh.permission.PermissionHelper;
 
 import org.opencv.android.OpenCVLoader;
 
@@ -29,6 +31,11 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
         initView();
         initLoadOpenCV();
         initItem();
+        PermissionHelper.getInstance()
+                .init(this)
+                .checkPermission(Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE);
     }
 
     private void initView() {
@@ -61,5 +68,11 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
 
         startActivity(new Intent(this,activitys[position]));
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PermissionHelper.getInstance().release();
     }
 }

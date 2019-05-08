@@ -1,6 +1,5 @@
 package com.qhh.opencvdemo.activity;
 
-import android.Manifest;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.widget.ImageView;
 import com.qhh.baselib.image.CaptureHelper;
 import com.qhh.baselib.image.callback.IRequestCaptureCallback;
 import com.qhh.opencvdemo.R;
-import com.qhh.permission.PermissionHelper;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
@@ -31,11 +29,6 @@ public class GrayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gray);
         initView();
-        PermissionHelper.getInstance()
-                .init(this)
-                .checkPermission(Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE);
     }
 
     private void initView() {
@@ -71,13 +64,8 @@ public class GrayActivity extends AppCompatActivity {
 
                     @Override
                     public void success(int resultCode, final String path) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Bitmap bitmap = BitmapFactory.decodeFile(path);
-                                iv_original.setImageBitmap(bitmap);
-                            }
-                        });
+                        Bitmap bitmap = BitmapFactory.decodeFile(path);
+                        iv_original.setImageBitmap(bitmap);
                     }
                 })
                 .requestCapture(saveFile.getAbsolutePath());
@@ -87,7 +75,6 @@ public class GrayActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        PermissionHelper.getInstance().release();
         CaptureHelper.getInstance().release();
     }
 }
