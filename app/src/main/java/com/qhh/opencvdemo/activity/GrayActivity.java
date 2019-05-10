@@ -17,6 +17,11 @@ import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 
 import java.io.File;
+import java.nio.ByteBuffer;
+
+import static org.opencv.core.CvType.CV_8UC1;
+import static org.opencv.core.CvType.CV_8UC3;
+import static org.opencv.imgproc.Imgproc.cvtColor;
 
 public class GrayActivity extends AppCompatActivity {
 
@@ -38,19 +43,18 @@ public class GrayActivity extends AppCompatActivity {
 
     public void process(View view) {
 
-        if(saveFile.exists()){
-            Bitmap bitmap = BitmapFactory.decodeFile(saveFile.getAbsolutePath());
-
+//        if(saveFile.exists()){
+//            Bitmap bitmap = BitmapFactory.decodeFile(saveFile.getAbsolutePath());
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.face);
             Mat dir= new Mat();
             Mat source = new Mat();
             Utils.bitmapToMat(bitmap, source);
-            Imgproc.cvtColor(source,dir,Imgproc.COLOR_BGRA2GRAY);
+            cvtColor(source,dir,Imgproc.COLOR_BGRA2GRAY);
             Utils.matToBitmap(dir,bitmap);
             iv_gray.setImageBitmap(bitmap);
             source.release();
             dir.release();
-        }
-
+//        }
     }
 
     public void takePhotos(View view) {
@@ -70,6 +74,38 @@ public class GrayActivity extends AppCompatActivity {
                 })
                 .requestCapture(saveFile.getAbsolutePath());
 
+    }
+
+    private Boolean YV12ToBGR24_OpenCV(byte[] pYUV,byte[] pBGR24,int width,int height){
+
+        if (width < 1 || height < 1 || pYUV == null || pBGR24 == null)
+            return false;
+
+        ByteBuffer bgr = ByteBuffer.allocate(width * height);
+        Mat dst = new Mat(height, width, CV_8UC3, bgr);
+
+        ByteBuffer yuv = ByteBuffer.allocate(width * height);
+        Mat src = new Mat(height + height / 2, width, CV_8UC1, yuv);
+//        cvtColor(src,dst,CV_YUV2BGR_YV12);
+        cvtColor(src,dst,Imgproc.COLOR_YUV2BGR_YV12);
+        return true;
+    }
+
+    public Bitmap YV12ToBGR24_OpenCV(byte[] pYUV,int width,int height){
+
+        if (width < 1 || height < 1 || pYUV == null)
+            return null;
+
+        ByteBuffer bgr = ByteBuffer.allocate(width * height);
+        Mat dst = new Mat(height, width, CV_8UC3, bgr);
+
+        ByteBuffer yuv = ByteBuffer.allocate(width * height);
+        Mat src = new Mat(height + height / 2, width, CV_8UC1, yuv);
+        //cvtColor(src,dst,CV_YUV2BGR_YV12);
+        cvtColor(src,dst, Imgproc.COLOR_YUV2BGR_YV12);
+        Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Utils.matToBitmap(dst,bmp);
+        return bmp;
     }
 
     @Override
