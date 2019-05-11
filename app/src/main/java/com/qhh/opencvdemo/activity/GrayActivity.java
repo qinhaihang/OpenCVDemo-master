@@ -42,19 +42,20 @@ public class GrayActivity extends AppCompatActivity {
     }
 
     public void process(View view) {
-
-//        if(saveFile.exists()){
-//            Bitmap bitmap = BitmapFactory.decodeFile(saveFile.getAbsolutePath());
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.face);
-            Mat dir= new Mat();
-            Mat source = new Mat();
-            Utils.bitmapToMat(bitmap, source);
-            cvtColor(source,dir,Imgproc.COLOR_BGRA2GRAY);
-            Utils.matToBitmap(dir,bitmap);
-            iv_gray.setImageBitmap(bitmap);
-            source.release();
-            dir.release();
-//        }
+        Bitmap bitmap = null;
+        if(saveFile.exists()){
+            bitmap = BitmapFactory.decodeFile(saveFile.getAbsolutePath());
+        }else{
+            bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.face);
+        }
+        Mat dir= new Mat();
+        Mat source = new Mat();
+        Utils.bitmapToMat(bitmap, source);
+        cvtColor(source,dir,Imgproc.COLOR_BGRA2GRAY);
+        Utils.matToBitmap(dir,bitmap);
+        iv_gray.setImageBitmap(bitmap);
+        source.release();
+        dir.release();
     }
 
     public void takePhotos(View view) {
