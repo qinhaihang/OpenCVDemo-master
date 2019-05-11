@@ -27,8 +27,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':openCVLibrary')
-    implementation 'com.github.qinhaihang:permission:v1.2.3'
-    implementation 'com.github.qinhaihang:BaseLib:v1.0.1'
+    implementation 'com.github.qinhaihang:permission:v1.2.4'
+    implementation 'com.github.qinhaihang:BaseLib:v1.1.1'
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3' // Optional, if you use support library fragments:
