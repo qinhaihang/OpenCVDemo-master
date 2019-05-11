@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.qhh.opencvdemo.activity.GrayActivity;
+import com.qhh.opencvdemo.activity.ReadImageInfoActivity;
 import com.qhh.opencvdemo.adapter.MainAdatper;
 import com.qhh.permission.PermissionHelper;
 
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
 
     private ArrayList<String> mItems;
     private MainAdatper mMainAdatper;
-    private Class[] activitys = new Class[]{GrayActivity.class};
+    private Class[] activitys = new Class[]{GrayActivity.class, ReadImageInfoActivity.class};
     private RecyclerView mRv;
 
     @Override
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
     private void initItem() {
 
         mItems.add("灰度");
+        mItems.add("读取图片信息");
 
         mMainAdatper.setDatas(mItems);
     }

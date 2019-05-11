@@ -31,7 +31,8 @@ dependencies {
     implementation 'com.github.qinhaihang:BaseLib:v1.1.1'
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3' // Optional, if you use support library fragments:
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+    // Optional, if you use support library fragments:
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
 }
 
