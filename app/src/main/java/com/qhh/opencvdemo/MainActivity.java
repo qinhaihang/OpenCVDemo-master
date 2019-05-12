@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.qhh.opencvdemo.activity.GrayActivity;
 import com.qhh.opencvdemo.activity.ReadImageInfoActivity;
+import com.qhh.opencvdemo.activity.SaveMat2SDActivity;
 import com.qhh.opencvdemo.adapter.MainAdatper;
 import com.qhh.permission.PermissionHelper;
 
@@ -22,7 +23,8 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
 
     private ArrayList<String> mItems;
     private MainAdatper mMainAdatper;
-    private Class[] activitys = new Class[]{GrayActivity.class, ReadImageInfoActivity.class};
+    private Class[] activitys = new Class[]{GrayActivity.class, ReadImageInfoActivity.class,
+            SaveMat2SDActivity.class};
     private RecyclerView mRv;
 
     @Override
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
 
         mItems.add("灰度");
         mItems.add("读取图片信息");
+        mItems.add("Mat对象的转为图片保存本地");
 
         mMainAdatper.setDatas(mItems);
     }

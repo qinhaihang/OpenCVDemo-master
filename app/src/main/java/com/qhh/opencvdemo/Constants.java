@@ -16,6 +16,7 @@ import java.io.File;
  */
 public class Constants {
 
-    public static final String TEST_IMAGE = Environment.getExternalStorageDirectory() + File.separator + "OpenCVDemo";
+    public static final String TEST_IMAGE = Environment.getExternalStorageDirectory() + File.separator + "OpenCVDemo"+File.separator;
+            ;
 
 }
