@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
         mItems.add("灰度");
         mItems.add("读取图片信息");
         mItems.add("Mat对象的转为图片保存本地");
+        mItems.add("计算图像均值方差做二分值处理");
 
         mMainAdatper.setDatas(mItems);
     }
