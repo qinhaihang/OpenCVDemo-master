@@ -1,7 +1,5 @@
 package com.qhh.opencvdemo.activity;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,14 +12,8 @@ import com.qhh.opencvdemo.R;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 public class ReadImageInfoActivity extends AppCompatActivity {
 
-    private String testImagePath;
     private TextView mImgInfo;
     private ImageView mImage;
 
@@ -29,7 +21,6 @@ public class ReadImageInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_image_info);
-        saveTestImage2SD();
         initView();
     }
 
@@ -40,7 +31,7 @@ public class ReadImageInfoActivity extends AppCompatActivity {
     }
 
     public void readImageInfo(View view) {
-        Mat imread = Imgcodecs.imread(testImagePath);
+        Mat imread = Imgcodecs.imread(Constants.testImage);
         int channels = imread.channels();
         int width = imread.cols();
         int height = imread.rows();
@@ -57,26 +48,4 @@ public class ReadImageInfoActivity extends AppCompatActivity {
         mImgInfo.setText(infos.toString());
     }
 
-    public void saveTestImage2SD(){
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.face);
-        File file = new File(Constants.TEST_IMAGE);
-        if(!file.exists()){
-            file.mkdirs();
-        }
-        File saveFile = new File(file, "test.jpg");
-        testImagePath = saveFile.getAbsolutePath();
-        try {
-            FileOutputStream outputStream = new FileOutputStream(saveFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
-            outputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            if(!bitmap.isRecycled()){
-                bitmap.recycle();
-            }
-        }
-    }
 }
