@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.MeanStdDevActivity"></activity>
+        <activity android:name=".activity.BrightContrastActivity"></activity>
+        <activity android:name=".activity.MeanStdDevActivity" />
         <activity android:name=".activity.MatConvertBitmapActivity" />
         <activity android:name=".activity.SaveMat2SDActivity" />
         <activity android:name=".activity.ReadImageInfoActivity" />
