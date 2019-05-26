@@ -10,6 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.qhh.opencvdemo.activity.AddActivity;
+import com.qhh.opencvdemo.activity.BrightContrastActivity;
 import com.qhh.opencvdemo.activity.GrayActivity;
 import com.qhh.opencvdemo.activity.MeanStdDevActivity;
 import com.qhh.opencvdemo.activity.ReadImageInfoActivity;
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
     private ArrayList<String> mItems;
     private MainAdatper mMainAdatper;
     private Class[] activitys = new Class[]{GrayActivity.class, ReadImageInfoActivity.class,
-            SaveMat2SDActivity.class, MeanStdDevActivity.class, AddActivity.class,BrightContrastActivity.class};
+            SaveMat2SDActivity.class, MeanStdDevActivity.class, AddActivity.class, BrightContrastActivity.class};
     private RecyclerView mRv;
 
     @Override
