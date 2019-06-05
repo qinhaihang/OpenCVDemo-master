@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.qhh.opencvdemo.activity.AddActivity;
+import com.qhh.opencvdemo.activity.AmbiguityActivity;
+import com.qhh.opencvdemo.activity.BGR2ARGBActivity;
 import com.qhh.opencvdemo.activity.BrightContrastActivity;
 import com.qhh.opencvdemo.activity.GrayActivity;
 import com.qhh.opencvdemo.activity.MeanStdDevActivity;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
     private MainAdatper mMainAdatper;
     private Class[] activitys = new Class[]{GrayActivity.class, ReadImageInfoActivity.class,
             SaveMat2SDActivity.class, MeanStdDevActivity.class, AddActivity.class, BrightContrastActivity.class,
-            AmbiguityActivity.class,BGR2ARGBActivity.class};
+            AmbiguityActivity.class, BGR2ARGBActivity.class};
     private RecyclerView mRv;
 
     @Override
@@ -79,7 +81,8 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
         mItems.add("两个图像相加");
         mItems.add("调整图像亮度和对比度");
         mItems.add("模糊");
-        mItems.add("转换");
+        mItems.add("Mat和Bitmap之间的转换");
+        mItems.add("相机流处理并且图片旋转");
 
         mMainAdatper.setDatas(mItems);
     }

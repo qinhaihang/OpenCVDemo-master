@@ -42,7 +42,7 @@ public class AmbiguityActivity extends AppCompatActivity {
 
         mMeanBitmap = Bitmap.createBitmap(src.cols(), src.rows(), Bitmap.Config.ARGB_8888);
         Mat result = new Mat();
-        Imgproc.cvtColor(dst,result,Imgproc.COLOR_BGR2BGRA);
+        Imgproc.cvtColor(dst,result,Imgproc.COLOR_BGR2RGBA);
         Utils.matToBitmap(result, mMeanBitmap);
 
         iv_mean.setImageBitmap(mMeanBitmap);
