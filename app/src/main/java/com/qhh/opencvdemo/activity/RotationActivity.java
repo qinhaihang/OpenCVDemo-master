@@ -1,5 +1,6 @@
 package com.qhh.opencvdemo.activity;
 
+import android.content.res.Configuration;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,13 +8,14 @@ import android.util.Log;
 import android.view.TextureView;
 
 import com.qhh.opencvdemo.R;
-import com.qhh.opencvdemo.manager.CameraManager;
-
-import java.io.IOException;
+import com.qhh.opencvdemo.camera.CameraConfig;
+import com.qhh.opencvdemo.camera.CameraUtil;
 
 public class RotationActivity extends AppCompatActivity {
 
     private TextureView mTexture;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +25,7 @@ public class RotationActivity extends AppCompatActivity {
         mTexture.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
             @Override
             public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
-                try {
-                    CameraManager.getInstance().open(0,mTexture);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                openCamera(surface);
             }
 
             @Override
@@ -37,8 +35,8 @@ public class RotationActivity extends AppCompatActivity {
 
             @Override
             public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
-                CameraManager.getInstance().releaseCamera();
-                return false;
+                CameraUtil.getInstance().releaseCameraIfNeed();
+                return true;
             }
 
             @Override
@@ -46,19 +44,35 @@ public class RotationActivity extends AppCompatActivity {
 
             }
         });
+    }
 
-        CameraManager.getInstance().setPreviewCallback(new CameraManager.PreviewCallback() {
+    private void openCamera(SurfaceTexture surface) {
+        CameraConfig build = new CameraConfig.Builder()
+                .facingBackCamera()
+                .facingFrontCamera()
+                .orientation(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? 90 : 0)
+                .support720p()
+                .support480p()
+                .build();
+
+        CameraUtil.getInstance().setPreviewCallback(new CameraUtil.PreviewCallback() {
+
+            @Override
+            public void onSize(int width, int height) {
+                Log.i("qhh", "width = " + width + ", height = " + height);
+            }
+
             @Override
             public void onPreviewFrame(byte[] data) {
-                Log.d("qhh_opencv","data size " + data.length);
+                Log.i("qhh", "data length = " + data.length);
             }
         });
-
+        CameraUtil.getInstance().openCamera(build, surface);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        CameraManager.getInstance().releaseCamera();
+
     }
 }
