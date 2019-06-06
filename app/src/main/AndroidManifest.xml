@@ -18,7 +18,10 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".activity.AmbiguityActivity"></activity>
         <activity android:name=".activity.AddActivity" />
-        <activity android:name=".activity.RotationActivity"></activity>
+        <activity android:name=".activity.RotationActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        </activity>
         <activity android:name=".activity.BGR2ARGBActivity" />
         <activity android:name=".activity.AddActivity" />
         <activity android:name=".activity.MeanStdDevActivity" />

@@ -20,4 +20,6 @@ public class Constants {
 
     public static String testImage;
 
+    public static final String BIN_PATH = TEST_IMAGE + File.separator + "bin";
+
 }
