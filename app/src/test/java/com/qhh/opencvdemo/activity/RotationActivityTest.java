@@ -2,8 +2,6 @@ package com.qhh.opencvdemo.activity;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * @author qinhaihang_vendor
  * @version $Rev$
@@ -63,6 +61,17 @@ public class RotationActivityTest {
 
         for (int i = 0; i < uvTemp.length; i++) {
             System.out.print(uvTemp[i] + ",");
+        }
+
+        System.arraycopy(uvTemp,0,I420,uStart,uvTemp.length);
+
+        for (int i = 0; i < I420.length; i++) {
+
+            if(i%4 == 0){
+                System.out.print("\n"+I420[i] + ",");
+            }else{
+                System.out.print(I420[i] + ",");
+            }
         }
 
     }

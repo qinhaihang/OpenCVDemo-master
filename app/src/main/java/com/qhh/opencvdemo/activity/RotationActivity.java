@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.qhh.opencvdemo.R;
 import com.qhh.opencvdemo.camera.CameraConfig;
 import com.qhh.opencvdemo.camera.CameraUtil;
+import com.qhh.opencvdemo.utils.ImageFormatUtils;
 
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -93,22 +94,25 @@ public class RotationActivity extends AppCompatActivity {
                         Imgproc.cvtColor(src,bgr,Imgproc.COLOR_YUV2BGR_NV21);
 
                         Mat bgrResult = new Mat();
-                        Mat matRotation = Imgproc.getRotationMatrix2D(new Point(bgr.rows() / 2, bgr.cols() / 2), 20.0, 1);
+                        Mat matRotation = Imgproc.getRotationMatrix2D(new Point(mHeight / 2, mWidth / 2), 20.0, 1);
                         Imgproc.warpAffine(bgr,bgrResult,matRotation,bgrResult.size());
 
                         Mat yuvResult = new Mat();
                         Imgproc.cvtColor(bgrResult,yuvResult,Imgproc.COLOR_BGR2YUV_I420);
 
-                        byte[] reusltByte = new byte[yuvResult.cols() * yuvResult.rows()  * 3 >> 1];
+                        byte[] resultByte = new byte[yuvResult.cols() * yuvResult.rows()  * 3 >> 1];
 
-                        yuvResult.get(0,0,reusltByte);
+                        yuvResult.get(0,0,resultByte);
+
+                        byte[] nv21 = ImageFormatUtils.colorI420toNV21(resultByte, mWidth, mHeight);
+//
 //                        count[0]++;
-//                        FileUtils.save2SDbin(Constants.BIN_PATH,reusltByte,count[0]+"");
+//                        FileUtils.save2SDbin(Constants.BIN_PATH, nv21, count[0] + "");
 
-                        YuvImage yuvImage = new YuvImage(reusltByte, ImageFormat.NV21, yuvResult.cols(), yuvResult.rows(), null);
+                        YuvImage yuvImage = new YuvImage(nv21, ImageFormat.NV21, mWidth, mHeight, null);
                         if (yuvImage != null) {
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            yuvImage.compressToJpeg(new Rect(0, 0, src.cols(), src.rows()), 100, stream);
+                            yuvImage.compressToJpeg(new Rect(0, 0, mWidth, mHeight), 100, stream);
 
                             final Bitmap bitmap = BitmapFactory.decodeByteArray(stream.toByteArray(), 0, stream.size());
 
