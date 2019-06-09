@@ -86,6 +86,7 @@ public class RotationActivity extends AppCompatActivity {
 
                     try {
                         byte[] data = mQueue.take();
+                        long start = System.currentTimeMillis();
 
                         Mat src = new Mat(mHeight * 3 >> 1, mWidth, CvType.CV_8UC1);
                         src.put(0,0,data);
@@ -93,18 +94,33 @@ public class RotationActivity extends AppCompatActivity {
                         Mat bgr = new Mat();
                         Imgproc.cvtColor(src,bgr,Imgproc.COLOR_YUV2BGR_NV21);
 
+                        long YUVtoBGR = System.currentTimeMillis();
+                        Log.i("qhh_time","yuv nv21 to bgr time " + (YUVtoBGR - start));
+
+                        count[0]++;
                         Mat bgrResult = new Mat();
-                        Mat matRotation = Imgproc.getRotationMatrix2D(new Point(mHeight / 2, mWidth / 2), 20.0, 1);
+                        Mat matRotation = Imgproc.getRotationMatrix2D(new Point(mHeight / 2, mWidth / 2), count[0] * 5, 1);
                         Imgproc.warpAffine(bgr,bgrResult,matRotation,bgrResult.size());
+
+                        long rotationTime = System.currentTimeMillis();
+                        Log.i("qhh_time","rotation time " + (rotationTime - YUVtoBGR));
 
                         Mat yuvResult = new Mat();
                         Imgproc.cvtColor(bgrResult,yuvResult,Imgproc.COLOR_BGR2YUV_I420);
+
+                        long BGRtoI420 = System.currentTimeMillis();
+                        Log.i("qhh_time","BGRtoI420 time " + (BGRtoI420 - rotationTime));
 
                         byte[] resultByte = new byte[yuvResult.cols() * yuvResult.rows()  * 3 >> 1];
 
                         yuvResult.get(0,0,resultByte);
 
                         byte[] nv21 = ImageFormatUtils.colorI420toNV21(resultByte, mWidth, mHeight);
+
+                        long I420toNV21 = System.currentTimeMillis();
+                        Log.i("qhh_time","I420toNV21 time " + (I420toNV21 - BGRtoI420));
+
+                        Log.e("qhh_time","total time " + (I420toNV21 - start));
 //
 //                        count[0]++;
 //                        FileUtils.save2SDbin(Constants.BIN_PATH, nv21, count[0] + "");
@@ -130,7 +146,13 @@ public class RotationActivity extends AppCompatActivity {
                             }
                         }
 
+                        src.release();
+                        bgr.release();
+                        bgrResult.release();
+                        yuvResult.release();
+
                         Thread.sleep(5*1000);
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
