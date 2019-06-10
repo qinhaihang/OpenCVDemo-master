@@ -1,7 +1,6 @@
 package com.qhh.opencvdemo.activity;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -62,7 +61,8 @@ public class BarConrrectActivity extends AppCompatActivity {
     }
 
     private void saveBar2SD(){
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bar);
+        Bitmap bitmap = ImageCvUtils.compressSize(getApplicationContext(), R.drawable.bar, 500, 500);
+
         File file = new File(Constants.TEST_IMAGE);
         if(!file.exists()){
             file.mkdirs();
