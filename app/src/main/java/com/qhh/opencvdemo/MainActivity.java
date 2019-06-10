@@ -13,6 +13,7 @@ import android.util.Log;
 import com.qhh.opencvdemo.activity.AddActivity;
 import com.qhh.opencvdemo.activity.AmbiguityActivity;
 import com.qhh.opencvdemo.activity.BGR2ARGBActivity;
+import com.qhh.opencvdemo.activity.BarConrrectActivity;
 import com.qhh.opencvdemo.activity.BrightContrastActivity;
 import com.qhh.opencvdemo.activity.GrayActivity;
 import com.qhh.opencvdemo.activity.MeanStdDevActivity;
@@ -39,7 +40,8 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
     private MainAdatper mMainAdatper;
     private Class[] activitys = new Class[]{GrayActivity.class, ReadImageInfoActivity.class,
             SaveMat2SDActivity.class, MeanStdDevActivity.class, AddActivity.class, BrightContrastActivity.class,
-            AmbiguityActivity.class, BGR2ARGBActivity.class, RotationActivity.class, FilterActivity.class};
+            AmbiguityActivity.class, BGR2ARGBActivity.class, RotationActivity.class, FilterActivity.class,
+            BarConrrectActivity.class};
     private RecyclerView mRv;
 
     @Override
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
         mItems.add("Mat和Bitmap之间的转换");
         mItems.add("相机流处理并且图片旋转");
         mItems.add("统计排序滤波");
+        mItems.add("条码矫正");
 
         mMainAdatper.setDatas(mItems);
     }

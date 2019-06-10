@@ -19,6 +19,7 @@ public class Constants {
     public static final String TEST_IMAGE = Environment.getExternalStorageDirectory() + File.separator + "OpenCVDemo"+File.separator;
 
     public static String testImage;
+    public static String barImage;
 
     public static final String BIN_PATH = TEST_IMAGE + File.separator + "bin";
 

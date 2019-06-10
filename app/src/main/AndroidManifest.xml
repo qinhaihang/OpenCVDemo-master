@@ -16,12 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.FilterActivity"></activity>
+        <activity android:name=".activity.BarConrrectActivity"></activity>
+        <activity android:name=".activity.FilterActivity" />
         <activity android:name=".activity.AmbiguityActivity" />
         <activity android:name=".activity.AddActivity" />
         <activity
             android:name=".activity.RotationActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".activity.BGR2ARGBActivity" />
         <activity android:name=".activity.AddActivity" />
         <activity android:name=".activity.MeanStdDevActivity" />
