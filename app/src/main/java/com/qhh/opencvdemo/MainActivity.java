@@ -19,7 +19,7 @@ import com.qhh.opencvdemo.activity.MeanStdDevActivity;
 import com.qhh.opencvdemo.activity.ReadImageInfoActivity;
 import com.qhh.opencvdemo.activity.RotationActivity;
 import com.qhh.opencvdemo.activity.SaveMat2SDActivity;
-import com.qhh.opencvdemo.activity.StatisticFilterActivity;
+import com.qhh.opencvdemo.activity.FilterActivity;
 import com.qhh.opencvdemo.adapter.MainAdatper;
 import com.qhh.permission.PermissionHelper;
 import com.qhh.permission.callback.ICallbackManager;
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
     private MainAdatper mMainAdatper;
     private Class[] activitys = new Class[]{GrayActivity.class, ReadImageInfoActivity.class,
             SaveMat2SDActivity.class, MeanStdDevActivity.class, AddActivity.class, BrightContrastActivity.class,
-            AmbiguityActivity.class, BGR2ARGBActivity.class, RotationActivity.class, StatisticFilterActivity.class};
+            AmbiguityActivity.class, BGR2ARGBActivity.class, RotationActivity.class, FilterActivity.class};
     private RecyclerView mRv;
 
     @Override

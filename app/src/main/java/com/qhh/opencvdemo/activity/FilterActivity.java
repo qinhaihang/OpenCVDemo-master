@@ -16,11 +16,12 @@ import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
-public class StatisticFilterActivity extends AppCompatActivity {
+public class FilterActivity extends AppCompatActivity {
 
     private ImageView iv_midfilter;
     private ImageView iv_minfilter;
     private ImageView iv_maxfilter;
+    private ImageView iv_bilateral;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class StatisticFilterActivity extends AppCompatActivity {
         iv_midfilter = findViewById(R.id.iv_midfilter);
         iv_minfilter = findViewById(R.id.iv_minfilter);
         iv_maxfilter = findViewById(R.id.iv_maxfilter);
+        iv_bilateral = findViewById(R.id.iv_bilateral);
     }
 
     public void midFilter(View view) {
@@ -87,6 +89,23 @@ public class StatisticFilterActivity extends AppCompatActivity {
 
         Bitmap bitmap = ImageCvUtils.mat2Bitmap(dst);
         iv_maxfilter.setImageBitmap(bitmap);
+
+        src.release();
+        dst.release();
+    }
+
+    public void bilateralFilter(View view) {
+        Mat src = Imgcodecs.imread(Constants.testImage);
+        if(src.empty()){
+            return;
+        }
+
+        Mat dst = new Mat();
+
+        Imgproc.bilateralFilter(src,dst,0,150,25);
+
+        Bitmap bitmap = ImageCvUtils.mat2Bitmap(dst);
+        iv_bilateral.setImageBitmap(bitmap);
 
         src.release();
         dst.release();

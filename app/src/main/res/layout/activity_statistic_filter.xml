@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    tools:context=".activity.StatisticFilterActivity">
+    tools:context=".activity.FilterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,6 +43,17 @@
 
         <ImageView
             android:id="@+id/iv_maxfilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="高斯双边滤波"
+            android:onClick="bilateralFilter"/>
+
+        <ImageView
+            android:id="@+id/iv_bilateral"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
