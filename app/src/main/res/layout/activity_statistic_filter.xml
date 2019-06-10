@@ -57,6 +57,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="均值迁移滤波"
+            android:onClick="shiftFilter"/>
+
+        <ImageView
+            android:id="@+id/iv_shiftfilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 </ScrollView>

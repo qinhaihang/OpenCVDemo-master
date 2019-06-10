@@ -22,6 +22,7 @@ public class FilterActivity extends AppCompatActivity {
     private ImageView iv_minfilter;
     private ImageView iv_maxfilter;
     private ImageView iv_bilateral;
+    private ImageView iv_shiftfilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class FilterActivity extends AppCompatActivity {
         iv_minfilter = findViewById(R.id.iv_minfilter);
         iv_maxfilter = findViewById(R.id.iv_maxfilter);
         iv_bilateral = findViewById(R.id.iv_bilateral);
+        iv_shiftfilter = findViewById(R.id.iv_shiftfilter);
     }
 
     public void midFilter(View view) {
@@ -106,6 +108,23 @@ public class FilterActivity extends AppCompatActivity {
 
         Bitmap bitmap = ImageCvUtils.mat2Bitmap(dst);
         iv_bilateral.setImageBitmap(bitmap);
+
+        src.release();
+        dst.release();
+    }
+
+    public void shiftFilter(View view) {
+        Mat src = Imgcodecs.imread(Constants.testImage);
+        if(src.empty()){
+            return;
+        }
+
+        Mat dst = new Mat();
+
+        Imgproc.pyrMeanShiftFiltering(src,dst,10,50);
+
+        Bitmap bitmap = ImageCvUtils.mat2Bitmap(dst);
+        iv_shiftfilter.setImageBitmap(bitmap);
 
         src.release();
         dst.release();
