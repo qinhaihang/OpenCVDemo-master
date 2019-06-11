@@ -3,10 +3,14 @@ package com.qhh.opencvdemo.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
+
+import java.io.IOException;
 
 /**
  * @author qinhaihang_vendor
@@ -42,15 +46,16 @@ public class ImageCvUtils {
      * @return
      */
     public static Bitmap compressSize(Context context,int resId,int reqWidth, int reqHeight ){
-
+        Bitmap result = null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(context.getResources(), resId, options);
-        options.inJustDecodeBounds = false;
         int sampleSize = caculateSampleSize(options, reqWidth, reqHeight);
         options.inSampleSize = sampleSize;
+        options.inJustDecodeBounds = false;
 
-        return BitmapFactory.decodeResource(context.getResources(), resId, options);
+        result = BitmapFactory.decodeResource(context.getResources(), resId, options);
+        return result;
     }
 
     /**
@@ -67,11 +72,58 @@ public class ImageCvUtils {
         if (picWidth > reqWidth || picHeight > reqHeight) {
             int halfPicWidth = picWidth / 2;
             int halfPicHeight = picHeight / 2;
-            while (halfPicWidth / sampleSize > reqWidth || halfPicHeight / sampleSize > reqHeight) {
+            while (halfPicWidth / sampleSize > reqWidth && halfPicHeight / sampleSize > reqHeight) {
                 sampleSize *= 2;
             }
         }
         return sampleSize;
+    }
+
+    /**
+     * 读取图片属性：旋转的角度
+     *
+     * @param path 图片绝对路径
+     * @return degree 旋转角度
+     */
+    public static int readPictureDegree(String path) {
+        int degree = 0;
+        try {
+            ExifInterface exifInterface = new ExifInterface(path);
+            int orientation = exifInterface.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_NORMAL);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    degree = 90;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    degree = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    degree = 270;
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return degree;
+    }
+
+    /**
+     * 旋转图片
+     *
+     * @param angle  旋转角度
+     * @param bitmap 原图
+     * @return bitmap 旋转后的图片
+     */
+    public static Bitmap rotateImage(int angle, Bitmap bitmap) {
+        // 图片旋转矩阵
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        // 得到旋转后的图片
+        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+                bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        return resizedBitmap;
     }
 
 }

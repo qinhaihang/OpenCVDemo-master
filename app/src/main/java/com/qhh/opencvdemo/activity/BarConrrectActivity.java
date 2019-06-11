@@ -68,10 +68,9 @@ public class BarConrrectActivity extends AppCompatActivity {
             file.mkdirs();
         }
         File saveFile = new File(file, "bar.jpg");
-        Constants.barImage = saveFile.getAbsolutePath();
         try {
             FileOutputStream outputStream = new FileOutputStream(saveFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,80,outputStream);
             outputStream.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -82,6 +81,30 @@ public class BarConrrectActivity extends AppCompatActivity {
                 bitmap.recycle();
             }
         }
+
+        int degree = ImageCvUtils.readPictureDegree(saveFile.getAbsolutePath());
+
+        if(degree == 0){
+            Constants.barImage = saveFile.getAbsolutePath();
+            return;
+        }
+
+        Bitmap rotationBitmap = ImageCvUtils.rotateImage(degree, bitmap);
+
+        File saveRotationFile = new File(file, "bar_rotation.jpg");
+        try{
+            FileOutputStream otsRotation = new FileOutputStream(saveRotationFile);
+            rotationBitmap.compress(Bitmap.CompressFormat.JPEG,100,otsRotation);
+            otsRotation.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(!rotationBitmap.isRecycled()){
+                rotationBitmap.recycle();
+            }
+        }
+        Constants.barImage = saveRotationFile.getAbsolutePath();
+
     }
 
     public void conrrect(View view) {
