@@ -17,6 +17,7 @@ import com.qhh.opencvdemo.activity.BarConrrectActivity;
 import com.qhh.opencvdemo.activity.BrightContrastActivity;
 import com.qhh.opencvdemo.activity.CustomFilterActivity;
 import com.qhh.opencvdemo.activity.GrayActivity;
+import com.qhh.opencvdemo.activity.JavaCameraViewActivity;
 import com.qhh.opencvdemo.activity.MeanStdDevActivity;
 import com.qhh.opencvdemo.activity.ReadImageInfoActivity;
 import com.qhh.opencvdemo.activity.RotationActivity;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
     private Class[] activitys = new Class[]{GrayActivity.class, ReadImageInfoActivity.class,
             SaveMat2SDActivity.class, MeanStdDevActivity.class, AddActivity.class, BrightContrastActivity.class,
             AmbiguityActivity.class, BGR2ARGBActivity.class, RotationActivity.class, FilterActivity.class,
-            BarConrrectActivity.class, CustomFilterActivity.class};
+            BarConrrectActivity.class, CustomFilterActivity.class, JavaCameraViewActivity.class};
     private RecyclerView mRv;
 
     @Override
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
         mItems.add("统计排序滤波");
         mItems.add("条码矫正");
         mItems.add("自定义滤波");
+        mItems.add("openCV摄像机控件");
 
         mMainAdatper.setDatas(mItems);
     }

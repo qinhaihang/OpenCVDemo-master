@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.CustomFilterActivity"></activity>
+        <activity android:name=".activity.JavaCameraViewActivity"></activity>
+        <activity android:name=".activity.CustomFilterActivity" />
         <activity android:name=".activity.BarConrrectActivity" />
         <activity android:name=".activity.FilterActivity" />
         <activity android:name=".activity.AmbiguityActivity" />
