@@ -4,10 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.JavaCameraViewActivity">
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".activity.VedioPlayActivity">
 
-    <org.opencv.android.JavaCameraView
-        android:id="@+id/cv_camera"
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="播放视频"
+        android:onClick="play"/>
+
+    <ImageView
+        android:id="@+id/iv_vedio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

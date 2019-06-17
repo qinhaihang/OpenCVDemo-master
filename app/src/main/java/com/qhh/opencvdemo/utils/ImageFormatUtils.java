@@ -1,5 +1,14 @@
 package com.qhh.opencvdemo.utils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.ImageFormat;
+import android.graphics.Rect;
+import android.graphics.YuvImage;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 /**
  * @author qinhaihang_vendor
  * @version $Rev$
@@ -60,6 +69,25 @@ public class ImageFormatUtils {
 //        }
 
         return I420;
+    }
+
+    public static Bitmap nv21toBitmap(byte[] nv21,int width,int height){
+        YuvImage yuvImage = new YuvImage(nv21, ImageFormat.NV21, width, height, null);
+        if (yuvImage != null) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            yuvImage.compressToJpeg(new Rect(0, 0, width, height), 100, stream);
+
+            final Bitmap bitmap = BitmapFactory.decodeByteArray(stream.toByteArray(), 0, stream.size());
+
+            try {
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                return bitmap;
+            }
+        }
+        return null;
     }
 
 }

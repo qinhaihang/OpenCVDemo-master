@@ -1,5 +1,6 @@
 package com.qhh.opencvdemo.utils;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.DataOutputStream;
@@ -7,6 +8,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import static com.qhh.opencvdemo.Constants.basePath;
+import static com.qhh.opencvdemo.Constants.videoPath;
 
 /**
  * @author qinhaihang
@@ -68,6 +74,41 @@ public class FileUtils {
             }
         }
 
+    }
+
+    public static boolean copyAssetsFileToPath(Context context, String fileName) {
+
+        File dirFile = new File(basePath);
+        if (!dirFile.exists() || !dirFile.isDirectory()) {
+            dirFile.mkdirs();
+        }
+        File outFile = new File(videoPath);
+        if (outFile.exists() && outFile.isFile()) {
+            outFile.delete();
+        }
+        try {
+            InputStream in = context.getAssets().open(fileName);
+            if (in == null) {
+                Log.e("", fileName + " the src file is not existed");
+                return false;
+            }
+            OutputStream out = new FileOutputStream(outFile);
+            byte[] buffer = new byte[1024];
+            int length = in.read(buffer);
+            while (length > 0) {
+                out.write(buffer, 0, length);
+                length = in.read(buffer);
+            }
+
+            out.flush();
+            in.close();
+            out.close();
+            return true;
+        } catch (Exception e) {
+            outFile.delete();
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

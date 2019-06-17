@@ -23,6 +23,7 @@ import com.qhh.opencvdemo.activity.ReadImageInfoActivity;
 import com.qhh.opencvdemo.activity.RotationActivity;
 import com.qhh.opencvdemo.activity.SaveMat2SDActivity;
 import com.qhh.opencvdemo.activity.FilterActivity;
+import com.qhh.opencvdemo.activity.VedioPlayActivity;
 import com.qhh.opencvdemo.adapter.MainAdatper;
 import com.qhh.permission.PermissionHelper;
 import com.qhh.permission.callback.ICallbackManager;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
     private Class[] activitys = new Class[]{GrayActivity.class, ReadImageInfoActivity.class,
             SaveMat2SDActivity.class, MeanStdDevActivity.class, AddActivity.class, BrightContrastActivity.class,
             AmbiguityActivity.class, BGR2ARGBActivity.class, RotationActivity.class, FilterActivity.class,
-            BarConrrectActivity.class, CustomFilterActivity.class, JavaCameraViewActivity.class};
+            BarConrrectActivity.class, CustomFilterActivity.class, JavaCameraViewActivity.class, VedioPlayActivity.class};
     private RecyclerView mRv;
 
     @Override
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
         mItems.add("条码矫正");
         mItems.add("自定义滤波");
         mItems.add("openCV摄像机控件");
+        mItems.add("播放视频");
 
         mMainAdatper.setDatas(mItems);
     }
