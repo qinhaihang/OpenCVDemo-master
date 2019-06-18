@@ -93,7 +93,7 @@ public class VedioPlayActivity extends AppCompatActivity {
                 dst.get(0,0,I420);
 
                 Log.i("qhh_vedio","width = " + dst.cols() +",heigth = " + dst.rows());
-                byte[] nv21 = ImageFormatUtils.colorI420toNV21(I420, dst.cols(), dst.rows());
+                byte[] nv21 = ImageFormatUtils.colorI420toNV21(I420, image.cols(), image.rows());
 
                 //count++;
                 //FileUtils.save2SDbin(Constants.basePath, I420, count + "");

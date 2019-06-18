@@ -21,6 +21,13 @@ import java.io.IOException;
  */
 public class ImageFormatUtils {
 
+    /**
+     *
+     * @param I420
+     * @param w 原图大小分辨率
+     * @param h 原图大小分辨率
+     * @return
+     */
     public static byte[] colorI420toNV21(byte[] I420, int w, int h) {
 
         int uStart = w * h;
