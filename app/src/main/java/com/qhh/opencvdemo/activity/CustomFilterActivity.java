@@ -31,7 +31,7 @@ public class CustomFilterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_custom_filter);
         iv_blurry = findViewById(R.id.iv_blurry);
         iv_sharpen = findViewById(R.id.iv_sharpen);
-        iv_gradient = findViewById(R.id.iv_gradient);
+        iv_gradient = findViewById(R.id.iv_sobel);
 
     }
 

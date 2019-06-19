@@ -13,14 +13,38 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btn_gradient"
+            android:id="@+id/btn_sobel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="梯度计算"
+            android:text="sobel梯度计算"
             android:onClick="click"/>
 
         <ImageView
-            android:id="@+id/iv_gradient"
+            android:id="@+id/iv_sobel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_scharr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="scharr梯度计算"
+            android:onClick="click"/>
+
+        <ImageView
+            android:id="@+id/iv_scharr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_laplacian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="拉普拉斯"
+            android:onClick="click"/>
+
+        <ImageView
+            android:id="@+id/iv_laplacian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
