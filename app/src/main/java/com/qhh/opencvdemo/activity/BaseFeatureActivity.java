@@ -25,6 +25,7 @@ public class BaseFeatureActivity extends AppCompatActivity {
     private Mat sobel;
     private Mat scharr;
     private Mat laplacian;
+    private ImageView iv_canny;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class BaseFeatureActivity extends AppCompatActivity {
         iv_sobel = findViewById(R.id.iv_sobel);
         iv_scharr = findViewById(R.id.iv_scharr);
         iv_laplacian = findViewById(R.id.iv_laplacian);
+        iv_canny = findViewById(R.id.iv_canny);
     }
 
     public void click(View view) {
@@ -51,9 +53,24 @@ public class BaseFeatureActivity extends AppCompatActivity {
             case R.id.btn_laplacian:
                 laplacian();
                 break;
+            case R.id.btn_canny:
+                canny();
+                break;
             default:
                 break;
         }
+    }
+
+    private void canny() {
+
+        Mat edges = new Mat();
+        Mat dst = new Mat();
+
+        Imgproc.Canny(src,edges,50,255,3,false);
+//        Core.bitwise_and(src,src,dst,edges);
+
+        Bitmap bitmap = ImageCvUtils.mat2Bitmap(edges);
+        iv_canny.setImageBitmap(bitmap);
     }
 
     private void laplacian() {
