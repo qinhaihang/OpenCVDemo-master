@@ -17,15 +17,16 @@ import com.qhh.opencvdemo.activity.BarConrrectActivity;
 import com.qhh.opencvdemo.activity.BaseFeatureActivity;
 import com.qhh.opencvdemo.activity.BrightContrastActivity;
 import com.qhh.opencvdemo.activity.CustomFilterActivity;
+import com.qhh.opencvdemo.activity.FilterActivity;
 import com.qhh.opencvdemo.activity.GrayActivity;
 import com.qhh.opencvdemo.activity.JavaCameraViewActivity;
 import com.qhh.opencvdemo.activity.MeanStdDevActivity;
 import com.qhh.opencvdemo.activity.ReadImageInfoActivity;
 import com.qhh.opencvdemo.activity.RotationActivity;
 import com.qhh.opencvdemo.activity.SaveMat2SDActivity;
-import com.qhh.opencvdemo.activity.FilterActivity;
 import com.qhh.opencvdemo.activity.VedioPlayActivity;
 import com.qhh.opencvdemo.adapter.MainAdatper;
+import com.qhh.opencvdemo.utils.ImageCvUtils;
 import com.qhh.permission.PermissionHelper;
 import com.qhh.permission.callback.ICallbackManager;
 
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
                         Log.d("qinhaihang","onAllPermissonGranted = " + flag);
                         if(flag){
                             saveTestImage2SD();
+                            saveBar2SD();
                         }
                     }
                 })
@@ -132,6 +134,53 @@ public class MainActivity extends AppCompatActivity implements MainAdatper.OnIte
                 bitmap.recycle();
             }
         }
+    }
+
+    private void saveBar2SD(){
+        Bitmap bitmap = ImageCvUtils.compressSize(getApplicationContext(), R.drawable.bar, 500, 500);
+
+        File file = new File(Constants.TEST_IMAGE);
+        if(!file.exists()){
+            file.mkdirs();
+        }
+        File saveFile = new File(file, "bar.jpg");
+        try {
+            FileOutputStream outputStream = new FileOutputStream(saveFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,80,outputStream);
+            outputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(!bitmap.isRecycled()){
+                bitmap.recycle();
+            }
+        }
+
+        int degree = ImageCvUtils.readPictureDegree(saveFile.getAbsolutePath());
+
+        if(degree == 0){
+            Constants.barImage = saveFile.getAbsolutePath();
+            return;
+        }
+
+        Bitmap rotationBitmap = ImageCvUtils.rotateImage(degree, bitmap);
+
+        File saveRotationFile = new File(file, "bar_rotation.jpg");
+        try{
+            FileOutputStream otsRotation = new FileOutputStream(saveRotationFile);
+            rotationBitmap.compress(Bitmap.CompressFormat.JPEG,100,otsRotation);
+            otsRotation.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(!rotationBitmap.isRecycled()){
+                rotationBitmap.recycle();
+            }
+        }
+        Constants.barImage = saveRotationFile.getAbsolutePath();
+
     }
 
     @Override
